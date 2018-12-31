@@ -1,65 +1,47 @@
-{% load bootstrap4 %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    {% if title %}
-    <title>Neighbourhood</title>
-    {% else %}
-    <title> {{ title }} </title>
-    {% endif %}
-
-    <link rel="shortcut icon" href="assets/favicon.ico">
-    {% block styles %}
-    <link rel="stylesheet" href="/static/vendor/open-iconic/css/open-iconic-bootstrap.min.css">
-    {% bootstrap_css %}
-    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
-    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
 </head>
 
 <body>
-    {% include 'navbar.html' %}
-    
-                <li class="nav-item dropdown header-nav-dropdown">
-                    <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="oi oi-grid-three-up"></span>
-                    </a>
-                    <!-- /.dropdown-sheet-item -->
-            </div>
-            <!-- .dropdown-sheets -->
-        </div>
-        <div class="dropdown">
-            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <span class="user-avatar">
-                    <img src="{{ request.user.profile.profile_picture.url }}" alt="">
-                </span>
-                <span class="account-summary pr-lg-4 d-none d-lg-block">
-                    <span class="account-name"> {{ request.user.username }} </span>
-                    <span class="account-description"> {{ request.user.profile.neighborhood.name }}
-                    </span>
-                </span>
-            </button>
-        </div>
+    {% load static%}
+    {% block styles %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sidenav</title>
+    <link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond|Dancing+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">
+    {% block materialize%}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-        <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
-            <span class="user-avatar user-avatar-lg">
-                <img src="{{ request.user.profile.profile_picture.url }}" alt="">
-            </span>
-            <span class="account-summary">
-                <span class="account-name"> {{ request.user.username }} </span>
-                <span class="account-description"> {{ request.user.profile.neighborhood.name }} </span>
-            </span>
-        </button>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/animate.css'%}">
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css'%}">
+    {% endblock %}
 
-        {% block content %}
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% endblock %}
+
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+        {% block content %} {%endblock%}
+
+        {% block scripts %}
+
         {% endblock %}
-</body>
+    </body>
 
 </html>
