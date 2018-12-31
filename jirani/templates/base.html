@@ -9,294 +9,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {% if title %}
-    <title> Hood360 | Keep Track ! </title>
+    <title>Neighbourhood</title>
     {% else %}
     <title> {{ title }} </title>
     {% endif %}
 
-    <!-- FAVICONS -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/apple-touch-icon.png">
     <link rel="shortcut icon" href="assets/favicon.ico">
-    <meta name="theme-color" content="#3063A0">
-
-    <script src="/static/vendor/pace/pace.min.js"></script>
     {% block styles %}
-    <link rel="stylesheet" href="/static/vendor/pace/pace.min.css">
     <link rel="stylesheet" href="/static/vendor/open-iconic/css/open-iconic-bootstrap.min.css">
     {% bootstrap_css %}
     <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/vendor/fontawesome/css/fontawesome.all.css">
-    <link rel="stylesheet" href="/static/vendor/flatpickr/flatpickr.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="/static/stylesheets/main.min.css">
     {% endblock %}
-
-    <!-- BEGIN BASE STYLES -->
-    <!-- END BASE STYLES -->
-
 
 </head>
 
 <body>
-    <!-- .app -->
-    <div class="app">
-        <!-- .app-header -->
-        <header class="app-header">
-            <!-- .top-bar -->
-            <div class="top-bar">
-                <!-- .top-bar-brand -->
-                <div class="top-bar-brand">
-                    <a href="/">
-                        <i class="fa fa-users" style="font-size:36px"></i>
+    {% include 'navbar.html' %}
+    
+                <li class="nav-item dropdown header-nav-dropdown">
+                    <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="oi oi-grid-three-up"></span>
                     </a>
-                </div>
-                <!-- /.top-bar-brand -->
-                <!-- .top-bar-list -->
-                <div class="top-bar-list">
-                    <!-- .top-bar-item -->
-                    <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
-                        <!-- toggle menu -->
-                        <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"
-                            aria-controls="navigation">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                        <!-- /toggle menu -->
-                    </div>
-                    <!-- /.top-bar-item -->
-                    <!-- .top-bar-item -->
-                    <div class="top-bar-item top-bar-item-full">
-                        <!-- .top-bar-search -->
-                        <div class="top-bar-search">
-                            <div class="input-group input-group-search">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <span class="oi oi-magnifying-glass"></span>
-                                    </span>
-                                </div>
-                                <form method="GET" action="{% url 'search' %}" role="search">
-                                    <input name="hood_search" type="search"" class=" form-control" aria-label="Search"
-                                        placeholder="Search hoods">
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /.top-bar-search -->
-                    </div>
-                    <!-- /.top-bar-item -->
-                    <!-- .top-bar-item -->
-                    <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
-                        <!-- .nav -->
-                        <ul class="header-nav nav">
-                            <!-- .nav-item -->
-                            <li class="nav-item dropdown header-nav-dropdown has-notified">
-                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="oi oi-pulse"></span>
-                                </a>
-                                <div class="dropdown-arrow"></div>
-                                <!-- .dropdown-menu -->
-                                <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                                    <h6 class="dropdown-header stop-propagation">
-                                        <span>Activities
-                                            <span class="badge">(2)</span>
-                                        </span>
-                                    </h6>
-                                    <!-- .dropdown-scroll -->
-                                    <div class="dropdown-scroll has-scrollable">
-                                        <!-- .dropdown-item -->
-                                        <a href="#" class="dropdown-item">
-                                            <div class="user-avatar">
-                                                <img src="assets/images/avatars/uifaces21.jpg" alt=""> </div>
-                                            <div class="dropdown-item-body">
-                                                <p class="text"> Morris Ngei joined your hood ! </p>
-                                                <span class="date">2 days ago</span>
-                                            </div>
-                                        </a>
-                                        <!-- /.dropdown-item -->
-                                    </div>
-                                    <!-- /.dropdown-scroll -->
-                                    <a href="#" class="dropdown-footer">All activities
-                                        <i class="fa fa-fw fa-long-arrow-alt-right"></i>
-                                    </a>
-                                </div>
-                                <!-- /.dropdown-menu -->
-                            </li>
-                            <!-- /.nav-item -->
-                            <!-- .nav-item -->
-                            <li class="nav-item dropdown header-nav-dropdown has-notified">
-                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="oi oi-envelope-open"></span>
-                                </a>
-                                <div class="dropdown-arrow"></div>
-                                <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                                    <h6 class="dropdown-header stop-propagation">
-                                        <span>Messages</span>
-                                        <a href="#"> private </a>
-                                    </h6>
-                                    <!-- .dropdown-scroll -->
-                                    <div class="dropdown-scroll has-scrollable">
-                                        <!-- .dropdown-item -->
-                                        <!-- .dropdown-item -->
-                                        <a href="#" class="dropdown-item unread">
-                                            <p class="text text-truncate"> feature comming soon !
-                                            </p>
-                                    </div>
-                                    </a>
-                                    <!-- /.dropdown-item -->
-                                </div>
-                            </li>
-                            <!-- /.nav-item -->
-                            <!-- .nav-item -->
-                            <li class="nav-item dropdown header-nav-dropdown">
-                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="oi oi-grid-three-up"></span>
-                                </a>
-                                <div class="dropdown-arrow"></div>
-                                <!-- .dropdown-menu -->
-                                <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                                    <!-- .dropdown-sheets -->
-                                    <div class="dropdown-sheets">
-                                        <!-- .dropdown-sheet-item -->
-                                        <div class="dropdown-sheet-item">
-                                            <a href="#" class="tile-wrapper">
-                                                <span class="tile tile-lg bg-indigo">
-                                                    <i class="oi oi-people"></i>
-                                                </span>
-                                                <span class="tile-peek"> Members </span>
-                                            </a>
-                                        </div>
-                                        <!-- /.dropdown-sheet-item -->
-                                        <!-- .dropdown-sheet-item -->
-                                        <div class="dropdown-sheet-item">
-                                            <a href="#" class="tile-wrapper">
-                                                <span class="tile tile-lg bg-teal">
-                                                    <i class="oi oi-fork"></i>
-                                                </span>
-                                                <span class="tile-peek"> Events </span>
-                                            </a>
-                                        </div>
-                                        <!-- /.dropdown-sheet-item -->
-                                    </div>
-                                    <!-- .dropdown-sheets -->
-                                </div>
-                                <!-- .dropdown-menu -->
-                            </li>
-                            <!-- /.nav-item -->
-                        </ul>
-                        <!-- /.nav -->
-                        <!-- .btn-account -->
-                        <div class="dropdown">
-                            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <span class="user-avatar">
-                                    <img src="{{ request.user.profile.profile_picture.url }}" alt="">
-                                </span>
-                                <span class="account-summary pr-lg-4 d-none d-lg-block">
-                                    <span class="account-name"> {{ request.user.username }} </span>
-                                    <span class="account-description"> {{ request.user.profile.neighborhood.name }}
-                                    </span>
-                                </span>
-                            </button>
-                            <div class="dropdown-arrow dropdown-arrow-left"></div>
-                            <!-- .dropdown-menu -->
-                            <div class="dropdown-menu">
-                                <h6 class="dropdown-header d-none d-md-block d-lg-none"> {{request.user.username}} </h6>
-                                <a class="dropdown-item" href="/member/{{request.user.username}}">
-                                    <span class="dropdown-icon oi oi-person"></span> Profile</a>
-                                <a class="dropdown-item" href="/user/logout">
-                                    <span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
-                            </div>
-                            <!-- /.dropdown-menu -->
-                        </div>
-                        <!-- /.btn-account -->
-                    </div>
-                    <!-- /.top-bar-item -->
-                </div>
-                <!-- /.top-bar-list -->
+                    <!-- /.dropdown-sheet-item -->
             </div>
-            <!-- /.top-bar -->
-        </header>
-        <!-- /.app-header -->
-        <!-- .app-aside -->
-        <aside class="app-aside">
-            <!-- .aside-content -->
-            <div class="aside-content">
-                <!-- .aside-header -->
-                <header class="aside-header d-block d-md-none">
-                    <!-- .btn-account -->
-                    <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
-                        <span class="user-avatar user-avatar-lg">
-                            <img src="{{ request.user.profile.profile_picture.url }}" alt="">
-                        </span>
-                        <span class="account-icon">
-                            <span class="fa fa-caret-down fa-lg"></span>
-                        </span>
-                        <span class="account-summary">
-                            <span class="account-name"> {{ request.user.username }} </span>
-                            <span class="account-description"> {{ request.user.profile.neighborhood.name }} </span>
-                        </span>
-                    </button>
-                    <!-- /.btn-account -->
-                    <!-- .dropdown-aside -->
-                    <div id="dropdown-aside" class="dropdown-aside collapse">
-                        <!-- dropdown-items -->
-                        <div class="pb-3">
-                            <a class="dropdown-item" href="/member/{{request.user.username}}">
-                                <span class="dropdown-icon oi oi-person"></span> Profile</a>
-                            <a class="dropdown-item" href="/user/logout">
-                                <span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
-                        </div>
-                        <!-- /dropdown-items -->
-                    </div>
-                    <!-- /.dropdown-aside -->
-                </header>
-                <!-- /.aside-header -->
-                <!-- .aside-menu -->
-                <section class="aside-menu has-scrollable">
-                        <ul class="menu">
-                            <li class="menu-item">
-                                <a href="/member/{{request.user.username}}" class="menu-link">Profile</a>
-                            </li>
-                        </ul>
-                        <!-- /child menu -->
-                    </li>
-                    <!-- /.menu-item -->
-                    </ul>
-                    <!-- /.menu -->
-                    </nav>
-                    <!-- /.stacked-menu -->
-                </section>
-                <!-- /.aside-menu -->
-            </div>
-            <!-- /.aside-content -->
-        </aside>
-        <!-- /.app-aside -->
-        <!-- .app-main -->
-        <main class="app-main">
-            {% block content %}
-            {% endblock %}
-        </main>
-        <!-- /.app-main -->
-    </div>
-    <!-- /.app -->
-    <!-- BEGIN PLUGINS JS -->
-    {% block scripts %}
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/popper.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/vendor/stacked-menu/stacked-menu.min.js"></script>
-    <script src="/static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/static/javascript/main.min.js"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+            <!-- .dropdown-sheets -->
+        </div>
+        <div class="dropdown">
+            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="user-avatar">
+                    <img src="{{ request.user.profile.profile_picture.url }}" alt="">
+                </span>
+                <span class="account-summary pr-lg-4 d-none d-lg-block">
+                    <span class="account-name"> {{ request.user.username }} </span>
+                    <span class="account-description"> {{ request.user.profile.neighborhood.name }}
+                    </span>
+                </span>
+            </button>
+        </div>
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-116692175-1');
-    </script>
-    {% endblock %}
+        <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
+            <span class="user-avatar user-avatar-lg">
+                <img src="{{ request.user.profile.profile_picture.url }}" alt="">
+            </span>
+            <span class="account-summary">
+                <span class="account-name"> {{ request.user.username }} </span>
+                <span class="account-description"> {{ request.user.profile.neighborhood.name }} </span>
+            </span>
+        </button>
+
+        {% block content %}
+        {% endblock %}
 </body>
 
 </html>
