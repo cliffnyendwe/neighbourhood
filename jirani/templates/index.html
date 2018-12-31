@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% block content %}
 {{block.super}}
 
 <header class="page-title-bar">
     <p class="lead">
         <span class="font-weight-bold">Hi, {{ request.user.username|title }}.</span>
-        <span class="d-block text-muted"> What’s happening ?</span>
+        <span class="d-block text-muted"> What’s new ?</span>
     </p>
 </header>
 <div class="metric-row">
@@ -36,52 +37,21 @@
                         <img src="{{ update.user.profile.profile_picture.url }}" alt="#"> </div>
                     <div class="account-summary">
                         <p class="account-name"> @{{ update.user.username }} </p>
-                        <p class="account-description"> {{ update.hood.name }} Member · {{ update.post_date }} </p>
+                        <p class="account-description"> {{ update.neighbour.name }} Member · {{ update.post_date }} </p>
                     </div>
                 </a>
-                <!-- .dropdown -->
                 {% if request.user == update.user %}
-                <div class="dropdown align-self-start ml-auto">
-                    <button class="btn btn-reset text-muted" data-toggle="dropdown">
-                        <i class="fa fa-fw fa-ellipsis-v"></i>
-                    </button>
-                    <div class="dropdown-arrow"></div>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="/updates/{{update.hood.name}}/delete/{{ update.id }}" class="dropdown-item">Delete</a>
-                    </div>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="/updates/{{update.hood.name}}/delete/{{ update.id }}" class="dropdown-item">Delete</a>
                 </div>
                 {% endif %}
-                <!-- /.dropdown -->
             </header>
             <div class="card-body">
-                <p class="mb-2"> <a href="#">@{{ update.hood.admin }} ( {{ update.hood.name }} Admin ) </a>
+                <p class="mb-2"> <a href="#">@{{ update.neighbour.admin }} ( {{ update.neighbour.name }} Admin ) </a>
                     {{ update.post }}
                 </p>
-                <div class="pswp-gallery">
 
-                    <div class="feed-attachments">
-                        <div class="attachment-item">
-                            <!-- .card-figure -->
-                            <section class="card-figure">
-                                <!-- .card-figure -->
-                                <figure class="figure">
-                                    <!-- .figure-img -->
-                                    <div class="figure-img">
-                                        <img class="img-fluid" src=" {{ update.picture.url }} " alt="Card image cap">
-                                    </div>
-                                    <!-- /.figure-img -->
-                                </figure>
-                                <!-- /.card-figure -->
-                            </section>
-                            <!-- /.card-figure -->
-                        </div>
-
-                    </div>
-                    <!-- /.feed-attachments -->
-
-
-                </div>
-                <!-- /.card-body -->
+                <img class="img-fluid" src=" {{ update.picture.url }} " alt="Card image cap">
 
                 <section class="converstations" role="log">
                     {% if comments %}

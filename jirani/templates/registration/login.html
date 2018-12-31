@@ -1,4 +1,4 @@
-{% extends 'registration/auth_base.html' %}
+{% extends 'registration/base.html' %}
 {% load bootstrap4 %}
 {% block content %}
 {{block.super}}
@@ -16,21 +16,10 @@
     <form action="/accounts/login/"  class="auth-form" method="POST" >
         {% csrf_token %}
         {% bootstrap_form form %}
-        <!-- .form-group -->
         <div class="form-group">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
         </div>
-        <!-- /.form-group -->
-
-        <!-- recovery links -->
-        <div class="text-center pt-3">
-            <a href="#" class="link">Forgot Username?</a>
-            <span class="mx-2">·</span>
-            <a href="#" class="link">Forgot Password?</a>
-        </div>
-        <!-- /recovery links -->
     </form>
-    <!-- /.auth-form -->
 
     <!-- copyright -->
     <footer class="auth-footer"> © 2018 All Rights Reserved.

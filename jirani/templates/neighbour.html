@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load custom_tags %}
 {% load bootstrap4 %}
 
 {% block content %}
@@ -49,23 +48,7 @@
                                         {% endif %}
 
                                         <hr>
-                                        {% is_mutui hood request.user.username as neighbor %} 
-                                        <button class="btn btn-primary circle">
-                                            {% if neighbor %}
-                                            <a class="btn-primary" href="/join/{{ hood.name }}" > Join </a>
-                                            {% else %}
-                                            <a class="btn-primary" href="{% url 'leave_hood' user=request.user %}" > Leave </a>
-                                            {% endif %}
-                                        </button>
-
-                                        {% if hood.admin == request.user %}
-                                            <button class="btn btn-primary circle ">
-                                                <a class="btn-primary"  href="{% url 'delete_hood' hood_id=hood.id %}">
-                                                    Delete Hood
-                                                </a>
-                                            </button>
-                                        {% endif %}
-
+                               
 
                                     </div>
                                     <!-- /.card-body -->

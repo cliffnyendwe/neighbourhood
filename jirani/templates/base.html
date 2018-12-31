@@ -56,7 +56,8 @@
                     <!-- .top-bar-item -->
                     <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
                         <!-- toggle menu -->
-                        <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu" aria-controls="navigation">
+                        <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"
+                            aria-controls="navigation">
                             <span class="hamburger-box">
                                 <span class="hamburger-inner"></span>
                             </span>
@@ -75,7 +76,8 @@
                                     </span>
                                 </div>
                                 <form method="GET" action="{% url 'search' %}" role="search">
-                                    <input name="hood_search" type="search"" class=" form-control" aria-label="Search" placeholder="Search hoods">
+                                    <input name="hood_search" type="search"" class=" form-control" aria-label="Search"
+                                        placeholder="Search hoods">
                                 </form>
                             </div>
                         </div>
@@ -184,13 +186,15 @@
                         <!-- /.nav -->
                         <!-- .btn-account -->
                         <div class="dropdown">
-                            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <span class="user-avatar">
                                     <img src="{{ request.user.profile.profile_picture.url }}" alt="">
                                 </span>
                                 <span class="account-summary pr-lg-4 d-none d-lg-block">
                                     <span class="account-name"> {{ request.user.username }} </span>
-                                    <span class="account-description"> {{ request.user.profile.neighborhood.name }} </span>
+                                    <span class="account-description"> {{ request.user.profile.neighborhood.name }}
+                                    </span>
                                 </span>
                             </button>
                             <div class="dropdown-arrow dropdown-arrow-left"></div>
@@ -249,90 +253,16 @@
                 <!-- /.aside-header -->
                 <!-- .aside-menu -->
                 <section class="aside-menu has-scrollable">
-                    <!-- .stacked-menu -->
-                    <nav id="stacked-menu" class="stacked-menu">
-                        <!-- .menu -->
                         <ul class="menu">
-                            <!-- .menu-item -->
-                            <li class="menu-item has-active">
-                                <a href="/" class="menu-link">
-                                    <span class="menu-icon oi oi-dashboard"></span>
-                                    <span class="menu-text">myHood</span>
-                                </a>
+                            <li class="menu-item">
+                                <a href="/member/{{request.user.username}}" class="menu-link">Profile</a>
                             </li>
-                            <!-- /.menu-item -->
-                            <!-- /.menu-item -->
-                            <!-- .menu-header -->
-                            <li class="menu-header"> interactive </li>
-                            <!-- /.menu-header -->
-                            <!-- .menu-item -->
-                            <li class="menu-item has-child">
-                                <a href="#" class="menu-link">
-                                    <span class="menu-icon oi oi-puzzle-piece"></span>
-                                    <span class="menu-text"> Businesses </span>
-                                    <span class="badge badge-warning">New</span>
-                                </a>
-                                <!-- child menu -->
-                                <ul class="menu">
-                                    <li class="menu-item">
-                                        <a href="/hood/{{ request.user.profile.neighborhood.name }}" class="menu-link">{{ request.user.profile.neighborhood.name }} businesses </a>
-                                    </li>
-                                </ul>
-                                <!-- /child menu -->
-                            </li>
-                            <!-- /.menu-item -->
-                            <!-- .menu-item -->
-                            <li class="menu-item has-child">
-                                <a href="#" class="menu-link">
-                                    <span class="menu-icon oi oi-grid-two-up"></span>
-                                    <span class="menu-text"> Hospitals </span>
-                                    <span class="badge badge-warning"> 1+ </span>
-                                </a>
-                                <!-- child menu -->
-                                <ul class="menu">
-                                    <li class="menu-item">
-                                        <a href="/hood/{{ request.user.profile.neighborhood.name }}" class="menu-link">{{ request.user.profile.neighborhood.name }} Hospitals </a>
-                                    </li>
-                                </ul>
-                                <!-- /child menu -->
-                            </li>
-                            <!-- /.menu-item -->
-                            <!-- .menu-item -->
-                            <li class="menu-item has-child">
-                                <a href="#" class="menu-link">
-                                    <span class="menu-icon oi oi-bar-chart"></span>
-                                    <!-- <i class="fa fa-lg fa-fw fa-briefcase" ></i> -->
-                                    <span class="menu-text"> Police </span>
-                                    <span class="badge badge-warning"> 1+ </span>
-                                </a>
-                                <!-- child menu -->
-                                <ul class="menu">
-                                    <li class="menu-item">
-                                        <a href="/hood/{{ request.user.profile.neighborhood.name }}" class="menu-link">{{ request.user.profile.neighborhood.name }} authorities </a>
-                                    </li>
-                                </ul>
-                                <!-- /child menu -->
-                            </li>
-                            <!-- .menu-header -->
-                            <li class="menu-header"> Account </li>
-                            <!-- /.menu-header -->
-                            <!-- .menu-item -->
-                            <li class="menu-item has-child">
-                                <a href="#" class="menu-link">
-                                    <span class="menu-icon oi oi-people"></span>
-                                    <span class="menu-text">User</span>
-                                </a>
-                                <!-- child menu -->
-                                <ul class="menu">
-                                    <li class="menu-item">
-                                        <a href="/member/{{request.user.username}}" class="menu-link">Profile</a>
-                                    </li>
-                                </ul>
-                                <!-- /child menu -->
-                            </li>
-                            <!-- /.menu-item -->
                         </ul>
-                        <!-- /.menu -->
+                        <!-- /child menu -->
+                    </li>
+                    <!-- /.menu-item -->
+                    </ul>
+                    <!-- /.menu -->
                     </nav>
                     <!-- /.stacked-menu -->
                 </section>
@@ -359,6 +289,7 @@
     <script src="/static/javascript/main.min.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -367,4 +298,5 @@
     </script>
     {% endblock %}
 </body>
+
 </html>

@@ -1,11 +1,8 @@
-
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-# importation neccessary models to the controller 
 from .models import Neighborhood , Profile , Business , PolicePost , Hospital , Update , Comment
-
 from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , PoliceAddForm , BusinessForm , HospitalForm , HoodForm
 
 @login_required( login_url= '/accounts/login')
@@ -13,7 +10,6 @@ def index(request):
     '''
     The first view user is redirected to upon signing in 
     '''
-    
     update_form = UpdateForm()
     comment_form = CommentForm()
 
@@ -51,11 +47,11 @@ def profile (request, user_username = None ):
         'profile': profile,
         'neighbors' : neighbors
     }
-    return render(request, 'profile/profile.html', data)
+    return render(request, 'profile.html', data)
 
 
 
-def edit_profile(request ,username=None ):
+def editprofile(request ,username=None ):
     '''
     View function to editing user profile !
     '''
@@ -84,7 +80,7 @@ def edit_profile(request ,username=None ):
         'message': message
     }
 
-    return render(request, 'profile/edit_profile.html', context)
+    return render(request, 'editprofile.html', context)
 
 
 def post_update(request):
@@ -96,7 +92,7 @@ def post_update(request):
         if hood_update_form.is_valid():
             new_update = hood_update_form.save(commit=False)
             new_update.user = request.user
-            new_update.neighborhood = request.user.neighborhood
+            new_update.neighbour = request.user.neighbour
             print(new_update)
 
             new_update.save()
@@ -147,7 +143,7 @@ def search(request):
         'message': message,
     }
 
-    return render(request, "navigation/search.html", context)
+    return render(request, "search.html", context)
 
 
 
@@ -178,7 +174,7 @@ def hood_details(request , hood_name = None):
         'police' : police
 
     }
-    return render (request,'navigation/hood.html',context)
+    return render (request,'neighbour.html',context)
 
   
 
@@ -249,10 +245,6 @@ def delete_hood_hospital(request, pk):
 
     return redirect('index')
 
-
-
-
-
 def create_hood(request):
     '''
     Handling creation of a new hood !
@@ -271,7 +263,7 @@ def create_hood(request):
     context = {
         'hood_form' : hood_form
     }
-    return render(request , 'navigation/create_hood.html',context)
+    return render(request , 'create_hood.html',context)
 
 
 

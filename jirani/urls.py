@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^member/(?P<user_username>\w+)/$', views.profile, name='userprofile'),
-    url(r'^(\w+)/edit$', views.edit_profile, name='edit_profile') ,
+    url(r'^(\w+)/edit$', views.editprofile, name='editprofile') ,
     url (r'^hood/updates/post/$' ,views.post_update , name='updates' ) ,
     url(r'^search/hood/$', views.search, name='search'),
     url (r'^hood/(?P<hood_name>\w+)/$' , views.hood_details , name = 'hood_details' ) ,
