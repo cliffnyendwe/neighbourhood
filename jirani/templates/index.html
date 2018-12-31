@@ -42,12 +42,7 @@
         {% endif %}
         </header>
         <div class="card-body">
-            <p class="mb-2"> <a href="#">@{{ update.neighbour.admin }} ( {{ update.neighbour.name }} Admin ) </a>
-                {{ update.post }}
-            </p>
-
             <img class="img-fluid" src=" {{ update.picture.url }} " alt="Card image cap">
-
             <section class="converstations" role="log">
                 {% if comments %}
                 <!-- .conversation list -->
@@ -92,7 +87,7 @@
                 {% else %}
                 <li class="conversation-inbound">
                     <div class="conversation-message">
-                        Be the first to comment !
+                        Be the first to comment out
                     </div>
                 </li>
                 {% endif %}
@@ -114,29 +109,17 @@
                                 {% csrf_token %}
                                 {% bootstrap_form comment_form layout='inline'%}
                             </div>
-                            <!-- /.publisher-input -->
-                            <!-- .publisher-actions -->
                             <div class="publisher-actions">
-                                <!-- .publisher-tools -->
-                                <div class="publisher-tools mr-auto">
-                                    <button type="button" class="btn btn-link fileinput-button">
-                                        <i class="fa fa-paperclip"></i>
-                                        <input type="file" id="message-attachment" name="attachment[]" multiple>
-                                    </button>
-                                    <button type="button" class="btn btn-link">
-                                        <i class="far fa-smile"></i>
-                                    </button>
-                                </div>
                                 <button type="submit" class="btn btn-primary">Comment</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            </section>
         </div>
         {% endfor %}
         {% else %}
         {% endif %}
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^search/hood/$', views.search, name='search'),
     url (r'^hood/(?P<hood_name>\w+)/$' , views.hood_details , name = 'hood_details' ) ,
     url(r'^hood/$' , views.create_hood , name='new_hood'),
-    url(r'^updates/(\w+)/delete(?P<update_id>\d+)' , views.delete_update , name = 'delete_update'  ),
     url(r'^comment/(?P<update_id>\d+)', views.comment, name='comment'),
     url(r'^business/add/new/' , views.add_business , name='new_business' ) , 
 ]

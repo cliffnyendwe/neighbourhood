@@ -49,8 +49,6 @@ def profile (request, user_username = None ):
     }
     return render(request, 'profile.html', data)
 
-
-
 def editprofile(request ,username=None ):
     '''
     View function to editing user profile !
@@ -82,7 +80,6 @@ def editprofile(request ,username=None ):
 
     return render(request, 'editprofile.html', context)
 
-
 def post_update(request):
     '''
     A function view to save new posts to neighborhood 
@@ -97,14 +94,6 @@ def post_update(request):
 
             new_update.save()
             return redirect(index)
-            
-
-def delete_update(request , update_id):
-    '''
-    Author of the update can delete an update
-    '''
-    return redirect(index)
-
 
 def comment(request, update_id):
     '''
@@ -120,8 +109,6 @@ def comment(request, update_id):
             comment.update = update
             comment.save()
             return redirect('index')
-
-
 
 def search(request):
     '''
@@ -145,8 +132,6 @@ def search(request):
 
     return render(request, "search.html", context)
 
-
-
 def hood_details(request , hood_name = None):
     '''
     We want to be able to view more details once we search a hood !
@@ -163,8 +148,6 @@ def hood_details(request , hood_name = None):
     }
     return render (request,'neighbour.html',context)
 
-  
-
 def add_business ( request):
     '''
     view function to which a new business shall be created
@@ -176,15 +159,6 @@ def add_business ( request):
             business.neighborhood = request.user.profile.neighborhood
             business.save()
             return redirect('hood_details', business.neighborhood)
-
-
-
-def delete_business(request):
-    '''
-    view function to which an existing business shall be deleted
-    '''
-    return redirect('index')
-
 
 def create_hood(request):
     '''

@@ -8,7 +8,9 @@
     <div class="page">
         <div class="page-inner">
             <div class="page-section row ">
+
                 <div class="col-md-2"></div>
+
                 <!-- .masonry-item -->
                 <div class="masonry-item col-md-8 ">
                     <!-- .card -->
@@ -16,9 +18,9 @@
                         <!-- .card-body -->
                         <div class="card-body text-center">
                             <h3 class="card-title text-truncate">
-                                {{neighbourhood.name|upper }}
+                                {{ hood.name|upper }}
                             </h3>
-                            <h4 class="card-subtitle text-muted mb-3"> {{ Neighbourhood.city|upper }} </h4>
+                            <h5 class="card-subtitle text-muted mb-3"> {{ hood.city }} </h5>
                             <section class="card card-fluid">
                                 <!-- .card-body -->
                                 <div class="card-body">
@@ -31,10 +33,10 @@
                                         </div>
                                     </figure>
                                     {% endfor %}
+
                                 </div>
-                            </section>
+                                <!-- /.card-body -->
                         </div>
-                    </section>
                 </div>
             </div>
         </div>
