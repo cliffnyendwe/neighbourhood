@@ -22,19 +22,28 @@
     {% block content %}
     <div class="container">
 
-        <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
         <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>A bunch of text</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-            </div>
+        <div id="modal1" class="modal" style="max-height: 800px !important;">
+            <form action="{%url 'businesses' %}" method='post' enctype="multipart/form-data">
+                <div class="modal-content">
+                    <h4>Add a Business</h4>
+
+                    {% csrf_token %}
+                    {{ form }}
+
+                </div>
+                <div class="modal-footer">
+                    <button type='submit' class="btn btn-success" style="margin-right:20px;">Submit</button>
+                </div>
+            </form>
         </div>
+    </div>
+    {% block scripts%}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+    </script>
     </div>
     {% endblock %}
 

@@ -149,16 +149,23 @@ def hood_details(request , hood_name = None):
     return render (request,'neighbour.html',context)
 
 def add_business ( request):
-    '''
-    view function to which a new business shall be created
-    '''
     if request.method == 'POST':
-        business_form = BusinessForm(request.POST)
-        if business_form.is_valid():
-            business = business_form.save(commit=False)
-            business.neighborhood = request.user.profile.neighborhood
+        form = BusinessForm(request.POST)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.user = current_user
+            business.neighborhood = neighborhood
             business.save()
-            return redirect('hood_details', business.neighborhood)
+            return redirect('new_businesses')
+    else:
+        form = BusinessForm()
+
+    try:
+        businesses = Business.objects.filter(neighborhood = neighborhood)
+    except:
+        businesses = None
+
+    return render(request,'new_businesses.html',{"businesses":businesses,"form":form})
 
 def create_hood(request):
     '''
