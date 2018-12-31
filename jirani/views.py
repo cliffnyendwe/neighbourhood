@@ -268,20 +268,6 @@ def create_hood(request):
 
 
 
-def delete_hood(request , hood_id):
-    '''
-    The view function for the admin to delete a hood !
-    '''
-    hood = get_object_or_404(Neighborhood, pk=hood_id)
-    hood.remove_hood()
-    return redirect('index')
 
 
-def leave_hood (request , user):
-    '''
-    When a user wishes to chuck from any group !
-    '''
-    hood_name = Neighborhood.get_hood_by_name(request.user.profile.neighborhood)
-    hood_name.leave_hood(request.user)
-    request.user.neighborhood = None
-    return redirect('hood_details', hood_name)
+

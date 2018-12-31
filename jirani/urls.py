@@ -17,8 +17,7 @@ urlpatterns = [
     url(r'^business/add/new/' , views.add_business , name='new_business' ) ,
     url(r'^hospital/add/new/', views.add_hood_hospital, name='new_hospital'),
     url(r'^police/add/new/', views.add_police_post, name='new_station'),
-    url(r'^leave/(?P<user>\w+)' ,views.leave_hood ,name='leave_hood' ) ,
-    url(r'^delete/(?P<hood_id>\w+)'  ,views.delete_hood , name='delete_hood')
+ 
 ]
 
 if settings.DEBUG:
