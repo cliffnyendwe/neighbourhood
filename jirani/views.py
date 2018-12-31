@@ -152,27 +152,14 @@ def hood_details(request , hood_name = None):
     We want to be able to view more details once we search a hood !
     '''
     hood = Neighborhood.find_neighborhood(hood_name)
-
     neighbors = Profile.objects.filter(neighborhood=hood)
-
-    hospital = Hospital.fetch_hood_hospitals(hood)
     business = Business.get_hood_business(hood)
-    police = PolicePost.get_hood_police(hood)
-
-    police_form = PoliceAddForm()
     business_form = BusinessForm()
-    hospital_form = HospitalForm()
-
     context = {
         'hood' : hood ,
-        'police_form': police_form ,
         'business_form': business_form ,
-        'hospital_form': hospital_form ,
         'neighbors' : neighbors ,
-        'hospital' : hospital ,
         'business' : business ,
-        'police' : police
-
     }
     return render (request,'neighbour.html',context)
 
@@ -199,52 +186,6 @@ def delete_business(request):
     return redirect('index')
 
 
-
-def add_police_post(request):
-    '''
-    view function to which a new police post shall be created
-    '''
-    if request.method == 'POST':
-        police_form = PoliceAddForm(request.POST)
-        if police_form.is_valid():
-            station = police_form.save(commit=False)
-            station.hood = request.user.profile.neighborhood
-            station.save()
-            return redirect('hood_details',station.hood)
-
-
-def delete_police_post(request , pk ):
-    '''
-    view function to which an existing police post shall be deleted
-    '''
-    police_post = PolicePost.get_police_post(pk)
-    police_post.remove_post()
-
-    return redirect('hood_details')
-
-
-def add_hood_hospital(request):
-    '''
-    view function to which a new police post shall be created
-    '''
-    if request.method == 'POST':
-        hospital_form = HospitalForm(request.POST)
-        if hospital_form.is_valid():
-            hospital = hospital_form.save(commit=False)
-            hospital.neighborhood = request.user.profile.neighborhood
-            hospital.save()
-            return redirect('hood_details',hospital.neighborhood)
-
-
-def delete_hood_hospital(request, pk):
-    '''
-    view function to which an existing police post shall be deleted
-    '''
-    police_post = PolicePost.get_police_post(pk)
-    police_post.remove_post()
-
-    return redirect('index')
-
 def create_hood(request):
     '''
     Handling creation of a new hood !
@@ -264,10 +205,3 @@ def create_hood(request):
         'hood_form' : hood_form
     }
     return render(request , 'create_hood.html',context)
-
-
-
-
-
-
-
