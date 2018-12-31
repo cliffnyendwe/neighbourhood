@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'materialize',
-    'neighbour.apps.NeighbourConfig',
+    'bootstrap4',
+    'jirani.apps.JiraniConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'neighbour',
         'USER': 'moringaschool',
-        'PASSWORD': 'cliff
+        'PASSWORD': 'cliff',
     }
 }
 
