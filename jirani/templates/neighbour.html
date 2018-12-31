@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% load bootstrap4 %}
+
+{% block content %}
+{{block.super}}
+
+<div class="wrapper">
+    <div class="page">
+        <div class="page-inner">
+            <div class="page-section row ">
+
+                <div class="col-md-2"></div>
+
+                <!-- .masonry-item -->
+                <div class="masonry-item col-md-8 ">
+                    <!-- .card -->
+                    <section class="card card-fluid">
+                        <!-- .card-body -->
+                        <div class="card-body text-center">
+
+                            <h3 class="card-title text-truncate">
+                                {{ hood.name|upper }}
+                            </h3>
+
+                            <h4 class="card-subtitle text-muted mb-3"> {{ hood.city }} </h4>
+                            <!-- .skills -->
+                            <p class="skills">
+                                <!-- .card -->
+                                <section class="card card-fluid">
+                                    <!-- .card-body -->
+                                    <div class="card-body">
+
+                                        <h5 class="card-title">{{ neighbors.count }} Members Online </h5>
+                                        {% if neighbors %}
+                                        {% for neiba in neighbors %}
+                                        <figure class="user-avatar user-avatar-lg dropdown">
+                                            <a href="#" data-toggle="dropdown">
+                                                <img src="{{ neiba.profile_picture.url }}" alt="  ">
+                                                <span class="avatar-badge has-indicator online">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a href="/member/{{ neiba.user.username }}" class="dropdown-item">Online</a>
+                                            </div>
+                                        </figure>
+                                        {% endfor %}
+                                        {% endif %}
+
+                                        <hr>
+                                        {% is_mutui hood request.user.username as neighbor %} 
+                                        <button class="btn btn-primary circle">
+                                            {% if neighbor %}
+                                            <a class="btn-primary" href="/join/{{ hood.name }}" > Join </a>
+                                            {% else %}
+                                            <a class="btn-primary" href="{% url 'leave_hood' user=request.user %}" > Leave </a>
+                                            {% endif %}
+                                        </button>
+
+                                        {% if hood.admin == request.user %}
+                                            <button class="btn btn-primary circle ">
+                                                <a class="btn-primary"  href="{% url 'delete_hood' hood_id=hood.id %}">
+                                                    Delete Hood
+                                                </a>
+                                            </button>
+                                        {% endif %}
+
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                </section>
+                                <!-- /.card -->
+                            </p>
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </section>
+                    <!-- /.card -->
+
+                    <!-- row -->
+                    <div class="row">
+
+                        <!-- grid column -->
+                        <div class="col-lg-6">
+                            <!-- .card -->
+                            <section class="card card-fluid">
+                                <header style="background: #f5b548;color: white" class="card-header border-bottom-0 text-center"> Businesses </header>
+                                <!-- .nestable -->
+                                {% if business %}
+                                <div id="nestable01" class="dd">
+                                    <!-- .dd-list -->
+                                    <ol class="dd-list">
+                                        {% for monkey in business %}
+                                        <li class="dd-item" data-id="5">
+                                            <div class="dd-handle">
+                                                <span class="drag-indicator"></span>
+                                                <div>
+                                                    <h4> {{ monkey.name }} : </h4> {{ monkey.email }}
+                                                </div>
+                                                <div class="dd-nodrag btn-group ml-auto">
+                                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                                    <button class="btn btn-sm btn-secondary">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ol>
+                                    <!-- /.dd-list -->
+                                </div>
+                                {% else %}
+                                    <h5 class="text-center"> No Businesses Yet ! </h5>
+                                {% endif %}
+                                <!-- /.nestable -->
+                                <!-- .card-footer -->
+                                <footer class="card-footer bg-light">
+                                    {% if hood == request.user.profile.neighborhood %}
+                                    <a href="#" data-toggle="modal" data-target="#business-add-modal" class="card-footer-item justify-content-start">
+                                        <span>
+                                            <i class="fa fa-plus-circle mr-1"></i> Add Business </span>
+                                    </a>
+                                    {% endif %}
+                                </footer>
+                                <!-- /.card-footer -->
+                            </section>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /grid column -->
+
+                        <!-- grid column -->
+                        <div class="col-lg-6">
+                            <!-- .card -->
+                            <section class="card card-fluid">
+                                <header style="background: #00a28a ;color: white" class="card-header border-bottom-0 text-center "> Hospitals </header>
+                                <!-- .nestable -->
+                                {% if hospital %}
+                                <div id="nestable01" class="dd">
+                                    <!-- .dd-list -->
+                                    <ol class="dd-list">
+                                        {% for med in hospital %}
+                                        <li class="dd-item" data-id="5">
+                                            <div class="dd-handle">
+                                                <span class="drag-indicator"></span>
+                                                <div>
+                                                    <h4> {{ med.name }} :</h4> {{ med.contact }}
+                                                </div>
+                                                <div class="dd-nodrag btn-group ml-auto">
+                                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                                    <button class="btn btn-sm btn-secondary">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ol>
+                                    <!-- /.dd-list -->
+                                </div>
+                                {% else %}
+                                    <h5 class="text-center"> No Hospitals Yet ! </h5>
+                                {% endif %}
+                                <!-- /.nestable -->
+                                <!-- .card-footer -->
+                                <footer class="card-footer bg-light">
+                                    {% if hood == request.user.profile.neighborhood %}
+                                    <a href="#" data-toggle="modal" data-target="#hospital-add-modal" class="card-footer-item justify-content-start">
+                                        <span>
+                                            <i class="fa fa-plus-circle mr-1"></i> Add Hospital </span>
+                                    </a>
+                                    {% endif %}
+                                </footer>
+                                <!-- /.card-footer -->
+                            </section>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /grid column -->
+
+
+                        <!-- grid column -->
+                        <div class="col-lg-6">
+                            <!-- .card -->
+                            <section class="card card-fluid">
+                                <header style="background: #346cb0;color: white" class="card-header border-bottom-0 text-center active"> Police Administration </header>
+                                <!-- .nestable -->
+                                {% if police %}
+                                <div id="nestable02" class="dd">
+                                    <!-- .dd-list -->
+                                    <ol class="dd-list">
+                                        {% for station in police %}
+                                        <li class="dd-item" data-id="10">
+                                            <div class="dd-handle">
+                                                <span class="drag-indicator"></span>
+                                                <div>
+                                                    <h4> {{ station.name }} : </h4> {{ station.contact }}
+                                                </div>
+                                                <div class="dd-nodrag btn-group ml-auto">
+                                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                                    <button class="btn btn-sm btn-secondary">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ol>
+                                    <!-- /.dd-list -->
+                                </div>
+                                {% else %}
+                                    <h5 class="text-center"> No Police Stations Yet ! </h5>
+                                {% endif %}
+                                <!-- /.nestable -->
+                                <!-- .card-footer -->
+                                <footer class="card-footer bg-light">
+                                    {% if hood == request.user.profile.neighborhood %}
+                                    <a href="#" data-toggle="modal" data-target="#police-add-modal" class="card-footer-item justify-content-start">
+                                        <span>
+                                            <i class="fa fa-plus-circle mr-1"></i> Add Police Post</span>
+                                    </a>
+                                    {% endif %}
+                                </footer>
+                                <!-- /.card-footer -->
+                            </section>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /grid column -->
+                    </div>
+                    <!-- ./ end of row  -->
+
+
+
+                    <!-- .MODAL FORMS  -->
+
+                    <!-- business form -->
+                    <form action="{% url 'new_business' %}" method="POST" enctype="multipart/form-data" class="modal fade" id="business-add-modal" tabindex="-1" role="dialog" aria-labelledby="business-add-modal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div style="background-color: #f5b548 !important" class="modal-header">
+                                    <h5 class="modal-title">New Business</h5>
+                                    <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </div>
+                                <!--end of modal head-->
+                                <div class="modal-body">
+                                    <!-- forms here -->
+                                    {% csrf_token %}
+                                    {% bootstrap_form business_form %}
+                                </div>
+                                <!--end of modal body-->
+                                <div class="modal-footer">
+                                    <button role="button" class="btn btn-success" type="submit">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ./business form -->
+
+                    <!-- .hospital form -->
+                    <form action="{% url 'new_hospital' %}" method="POST" enctype="multipart/form-data" class="modal fade" id="hospital-add-modal" tabindex="-1" role="dialog" aria-labelledby="hospital-add-modal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div style="background-color: #00a28a !important" class="modal-header">
+                                    <h5 class="modal-title">New Hospital</h5>
+                                    <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </div>
+                                <!--end of modal head-->
+                                <div class="modal-body">
+                                    <!-- forms here -->
+                                    {% csrf_token %}
+                                    {% bootstrap_form hospital_form %}
+                                </div>
+                                <!--end of modal body-->
+                                <div class="modal-footer">
+                                    <button role="button" class="btn btn-success" type="submit">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ./hospital form -->
+
+                    <!-- .police form -->
+                    <form action="{% url 'new_station' %}" method="POST" enctype="multipart/form-data" class="modal fade" id="police-add-modal" tabindex="-1" role="dialog" aria-labelledby="hospital-add-modal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div style="background-color: #346cb0 !important" class="modal-header">
+                                    <h5 class="modal-title">New Police </h5>
+                                    <button type="button" class="close btn btn-round" data-dismiss="modal" aria-label="Close">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </div>
+                                <!--end of modal head-->
+                                <div class="modal-body">
+                                    <!-- forms here -->
+                                    {% csrf_token %}
+                                    {% bootstrap_form police_form %}
+                                </div>
+                                <!--end of modal body-->
+                                <div class="modal-footer">
+                                    <button role="button" class="btn btn-success" type="submit">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ./police form -->
+
+                    <!-- /.MODAL FORMS -->
+
+                </div>
+                <!-- /.masonry-item -->
+
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

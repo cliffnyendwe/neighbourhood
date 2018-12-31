@@ -1,3 +1,233 @@
-from django.db import models
 
-# Create your models here.
+from django.db import models
+from django.contrib.auth.models import User
+
+ 
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+
+class Neighborhood (models.Model):
+    '''
+    We want to narrow down to Neighborhoods so Users can recieve relevant information
+    '''
+    name = models.CharField(max_length=30)
+    city = models.CharField(max_length = 50 , blank=True )
+    admin = models.ForeignKey(User , on_delete=models.CASCADE, related_name='hood_admin' , null=True , blank= True)
+    occupants = models.ManyToManyField(User , related_name='hood_occupants', blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+    def new_hood ( self ):
+        '''
+        Saving a new Hood 
+        '''
+        self.add()
+
+    def remove_hood(self ):
+        '''
+        Delete a hood
+        '''
+        self.delete()
+
+    def join_hood(self, occupant):
+        return self.occupants.add(occupant)
+
+    def leave_hood(self, occupant):
+        return self.occupants.remove(occupant)
+
+    def is_neighbor(self, neighbor):
+        return neighbor in self.occupants.all()
+
+    def get_number_of_neighbors(self):
+        if self.occupants.count():
+            return self.occupants.count()
+        else:
+            return 0
+
+    @classmethod 
+    def get_all_occupants (cls):
+        '''
+        Returns
+        '''
+        return cls.objects.all()
+    
+    @classmethod  
+    def find_neighborhood (cls , hood_name):
+        '''
+        method for returning a specific neighborhood 
+        '''
+        return cls.objects.get( name = hood_name )
+
+    @classmethod 
+    def search_hood (cls , search_term):
+        '''
+        Search for a hood from the db
+        '''
+        return cls.objects.filter(name__icontains=search_term)
+
+    @classmethod 
+    def update_hood_name ( cls ,id , new_name ):
+        return cls.objects.get(id).update( name = new_name )
+
+
+    @classmethod 
+    def get_hood_by_name(cls , name) :
+        return cls.objects.get(name=name)
+
+
+class Profile(models.Model):
+    '''
+    Profile of an individul . More Information .
+    '''
+    user = models.OneToOneField(User,  on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(Neighborhood , null=True , blank=True ,related_name='population' )
+    profile_picture = models.ImageField(upload_to='static/profile', default="https://imgur.com/jVr43h8.png" , blank=True)
+    about = models.TextField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+    @classmethod
+    def get_user_profile(cls, user):
+        return cls.objects.get(user=user)
+
+    @classmethod
+    def get_all_profiles(cls):
+        return cls.objects.all()
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+
+class Business (models.Model):
+    '''
+    Bunisesses in a particular neighborhood
+    '''
+    name = models.CharField(max_length = 30)
+    neighborhood = models.ForeignKey(Neighborhood)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Businesses'
+
+    def create_business ( self ):
+        self.save()
+
+    def remove_business ( self ):
+        self.delete()
+
+    @classmethod 
+    def get_hood_business ( cls , hood ):
+        return cls.objects.filter(neighborhood__name = hood)
+
+    @classmethod
+    def update_business ( id , new_name):
+        return cls.objects.get(id).update(name = new_name)
+
+
+
+class PolicePost (models.Model):
+    '''
+    Police offices or authorities within the vicinity
+    '''
+    name = models.CharField(max_length=30)
+    hood = models.ForeignKey(Neighborhood , null=True , blank=True )
+    contact = models.PositiveIntegerField( blank=True , null=True )
+
+    def __str__(self):
+        return self.name
+
+    def new_post (self):
+        self.add ()
+
+    def remove_post (self ):
+        '''
+        Delete a police post from your neighborhood 
+        '''
+        self.delete()
+    
+    @classmethod 
+    def get_hood_police(cls , hood):
+        '''
+        Get a particular hood 
+        '''
+        return cls.objects.filter(hood__name=hood)
+
+
+
+class Hospital (models.Model):
+    '''
+    Hospital and Medical institutions in a neighboorhood
+    '''
+    name = models.CharField(max_length=30)
+    neighborhood = models.ForeignKey(Neighborhood)
+    contact = models.PositiveIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    def new_hospital(self):
+        '''
+        Add a hospital
+        '''
+        self.add()
+
+    def remove_hospital(self):
+        '''
+        Removing a hospital from a neighborhood 
+        '''
+        self.delete()
+
+    @classmethod
+    def fetch_hood_hospitals(cls, hood):
+        '''
+        Fetch all police posts at your neighborhood 
+        '''
+        return cls.objects.filter(neighborhood__name=hood)
+
+
+class Update ( models.Model ):
+    '''
+    Could be Images , Videos or Plain words 
+    '''
+    user = models.ForeignKey(User , on_delete=models.CASCADE )
+    hood = models.ForeignKey(Neighborhood ,null=True , blank=True )
+    post = models.TextField(max_length=280 )
+    picture = models.ImageField( upload_to = 'static/posts/' , null=True )
+    post_date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f"{ self.user.username }'s post"
+
+
+    @classmethod 
+    def get_hood_updates(cls , hood):
+        return cls.objects.filter(hood = hood)
+
+
+class Comment ( models.Model ):
+    comment = models.CharField(max_length = 280)
+    # attached = models.ImageField()
+    update = models.ForeignKey(Update , on_delete=models.CASCADE)
+    user = models.ForeignKey(User , on_delete=models.CASCADE)
+    comment_date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username }'s comment on update by {self.update.user.username}"
+
+    @classmethod 
+    def get_hood_comments(cls , hood):
+        return cls.objects.filter(update__hood=hood)
