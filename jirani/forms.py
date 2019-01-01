@@ -43,7 +43,6 @@ class BusinessForm(forms.ModelForm):
         fields = [ 'name', 'email' 
            
         ]
-
 class HoodForm( forms.ModelForm ):
     class Meta:
         model = Neighborhood
