@@ -1,5 +1,5 @@
 from django import forms
-from .models import Update , Profile , Comment , PolicePost , Business , Hospital , Neighborhood
+from .models import Update , Profile , Comment , Business  , Neighborhood
 from django.contrib.auth.models import User
 
 
@@ -7,15 +7,9 @@ from django.contrib.auth.models import User
 class UpdateForm ( forms.ModelForm ):
     class Meta :
         model = Update
-        fields = [
-            'post' ,
-            'picture'
+        fields = [  'post' ,  'picture'
+
         ]
-        widgets = {
-            'post': forms.Textarea(attrs={'class': 'publisher-input' ,'id':'publisherInput1' }) ,
-        }
-
-
 class CommentForm (forms.ModelForm):
     class Meta:
         model = Comment
@@ -35,8 +29,6 @@ class UserUpdateForm (forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'id': 'publisherInput1'}),
         }
-
-
 class ProfileUpdateForm (forms.ModelForm):
     class Meta:
         model = Profile
@@ -45,41 +37,18 @@ class ProfileUpdateForm (forms.ModelForm):
         widgets = {
             'about': forms.Textarea(attrs={'class': 'form-control', 'id': 'publisherInput1'}),
         }
-
-
-class PoliceAddForm( forms.ModelForm ):
-    class Meta :
-        model = PolicePost
-        fields = [
-            'name' ,
-            'contact'
-        ]
-
-
 class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
-        fields = [
-            'name',
-            'email' 
+        fields = [ 'name', 'email' 
+           
         ]
-
-
-class HospitalForm(forms.ModelForm):
-    class Meta:
-        model = Hospital
-        fields = [
-            'name',
-            'contact'
-        ]
-
 
 class HoodForm( forms.ModelForm ):
     class Meta:
         model = Neighborhood
-        fields = [
-            'name',
-            'city'
+        fields = [  'name', 'city'
+          
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'publisherInput1'}),

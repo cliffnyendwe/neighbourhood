@@ -1,12 +1,9 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 
  
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
-
 
 class Neighborhood (models.Model):
     '''
@@ -26,18 +23,6 @@ class Neighborhood (models.Model):
         Saving a new Hood 
         '''
         self.add()
-
-    def remove_hood(self ):
-        '''
-        Delete a hood
-        '''
-        self.delete()
-
-    def join_hood(self, occupant):
-        return self.occupants.add(occupant)
-
-    def leave_hood(self, occupant):
-        return self.occupants.remove(occupant)
 
     def is_neighbor(self, neighbor):
         return neighbor in self.occupants.all()
@@ -136,68 +121,6 @@ class Business (models.Model):
     @classmethod
     def update_business ( id , new_name):
         return cls.objects.get(id).update(name = new_name)
-
-
-
-class PolicePost (models.Model):
-    '''
-    Police offices or authorities within the vicinity
-    '''
-    name = models.CharField(max_length=30)
-    hood = models.ForeignKey(Neighborhood , null=True , blank=True )
-    contact = models.PositiveIntegerField( blank=True , null=True )
-
-    def __str__(self):
-        return self.name
-
-    def new_post (self):
-        self.add ()
-
-    def remove_post (self ):
-        '''
-        Delete a police post from your neighborhood 
-        '''
-        self.delete()
-    
-    @classmethod 
-    def get_hood_police(cls , hood):
-        '''
-        Get a particular hood 
-        '''
-        return cls.objects.filter(hood__name=hood)
-
-
-
-class Hospital (models.Model):
-    '''
-    Hospital and Medical institutions in a neighboorhood
-    '''
-    name = models.CharField(max_length=30)
-    neighborhood = models.ForeignKey(Neighborhood)
-    contact = models.PositiveIntegerField(blank=True, null=True)
-
-    def __str__(self):
-        return self.name
-
-    def new_hospital(self):
-        '''
-        Add a hospital
-        '''
-        self.add()
-
-    def remove_hospital(self):
-        '''
-        Removing a hospital from a neighborhood 
-        '''
-        self.delete()
-
-    @classmethod
-    def fetch_hood_hospitals(cls, hood):
-        '''
-        Fetch all police posts at your neighborhood 
-        '''
-        return cls.objects.filter(neighborhood__name=hood)
-
 
 class Update ( models.Model ):
     '''

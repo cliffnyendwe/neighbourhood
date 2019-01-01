@@ -2,8 +2,8 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from .models import Neighborhood , Profile , Business , PolicePost , Hospital , Update , Comment
-from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , PoliceAddForm , BusinessForm , HospitalForm , HoodForm
+from .models import Neighborhood , Profile , Business , Update , Comment
+from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm , HoodForm
 
 @login_required( login_url= '/accounts/login')
 def index(request):

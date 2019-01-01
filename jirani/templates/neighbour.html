@@ -11,15 +11,13 @@
 
                 <div class="col-md-2"></div>
 
-                <!-- .masonry-item -->
                 <div class="masonry-item col-md-8 ">
-                    <!-- .card -->
                     <section class="card card-fluid">
-                        <!-- .card-body -->
                         <div class="card-body text-center">
                             <h3 class="card-title text-truncate">
                                 {{ hood.name|upper }}
                             </h3>
+                            <h5 class="card-subtitle text-muted mb-3"> {{ email }} </h5>
                             <h5 class="card-subtitle text-muted mb-3"> {{ hood.city }} </h5>
                             <section class="card card-fluid">
                                 <!-- .card-body -->
@@ -35,7 +33,6 @@
                                     {% endfor %}
 
                                 </div>
-                                <!-- /.card-body -->
                         </div>
                 </div>
             </div>
