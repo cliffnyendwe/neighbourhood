@@ -1,41 +1,38 @@
+{%extends "registration/base.html"%}
+{% block content%}
+<div class="container">
+  <div class="row">
+    <!-- Empty div -->
+    <div class="col s4"></div>
+    <div class="col s4">
+      {% if form.errors %}
+        <p> Some Information Might be Incorrect </p>
+      {% endif %}
+      <div class="panel panel-default">
 
-{% extends 'registration/base.html' %}
-{% load bootstrap4 %}
-{% block content %}
-{{block.super}}
-<!-- .auth -->
-<main class="auth">
-    <header id="auth-header" class="auth-header" style="background-image: url(assets/images/illustration/img-1.png);">
-        <h1>
-            <img src="assets/images/brand-inverse.png" alt="" height="72">
-            <span class="sr-only">Sign Up</span>
-        </h1>
-        <p> Already have an account? please
-            <a href="/accounts/login">Sign In</a>
-        </p>
-    </header>
-    <!-- form -->
-    <form method="post" action="/accounts/register/"  class="auth-form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-
-        <!-- .form-group -->
-        <div class="form-group">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+        <div class="panel-heading">
+          <h3 class="text-center">Sign Up</h3>
         </div>
-        <!-- /.form-group -->
+        <div class="panel-body">
 
+          <form  action="/accounts/register/" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary btn-sm"  style="font-family: 'Cormorant Garamond', serif;" value="Sign Up">
+            </div>
 
-        <!-- recovery links -->
-        <p class="text-center text-muted mb-0"> By creating an account you agree to the
-            <a href="#">Terms of Use</a> and
-            <a href="#">Privacy Policy</a>. </p>
-        <!-- /recovery links -->
-    </form>
-    <!-- /.auth-form -->
-    <!-- copyright -->
-    <footer class="auth-footer"> © 2018 All Rights Reserved. </footer>
-</main>
+            <input type="hidden" name="next" value="{{next}}">
 
+          </form>
 
-{% endblock %}
+        </div>
+
+      </div>
+
+    </div>
+    <!-- empty div -->
+    <div class="col s4"></div>
+  </div>
+</div>
+{% endblock%}
