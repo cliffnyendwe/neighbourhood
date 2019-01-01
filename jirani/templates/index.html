@@ -2,124 +2,52 @@
 {% load bootstrap4 %}
 {% block content %}
 {{block.super}}
+<div class="container" style="text-align: center">
+    <div class="masonry-item col-md-12 ">
+        <div class="card-panel">
+            <span class="font-weight-bold">Hi, {{ request.user.username|title }}.</span>
+            <span class="d-block text-muted"> What’s new ?</span>
 
-<p class="lead">
-    <span class="font-weight-bold">Hi, {{ request.user.username|title }}.</span>
-    <span class="d-block text-muted"> What’s new ?</span>
-</p>
-
-<div class="metric-row">
-    <div class="col-md-1"></div>
-    <div class="col-md-8">
-        <div class="metric-row metric-flush ">
-            <div class="col">
-                <form method="POST" action="{% url 'updates' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% bootstrap_form update_form layout='inline' %}
-                    <button role="button" class="btn btn-primary" type="submit">
-                        Submit
-                    </button>
-                </form>
-
-            </div>
-        </div>
-        {% if updates %}
-        {% for update in updates %}
-        <!-- .feed-post -->
-
-        <a href="#" class="btn-account" role="button">
-            <div class="user-avatar user-avatar-lg">
-                <img src="{{ update.user.profile.profile_picture.url }}" alt="#"> </div>
-            <div class="account-summary">
-                <p class="account-name"> @{{ update.user.username }} </p>
-                <p class="account-description"> {{ update.neighbour.name }} Member · {{ update.post_date }} </p>
-            </div>
-        </a>
-        {% if request.user == update.user %}
-        <div class="dropdown-menu dropdown-menu-right">
-            <a href="/updates/{{update.hood.name}}/delete/{{ update.id }}" class="dropdown-item">Delete</a>
-        </div>
-        {% endif %}
-        </header>
-        <div class="card-body">
-            <img class="img-fluid" src=" {{ update.picture.url }} " alt="Card image cap">
-            <section class="converstations" role="log">
-                {% if comments %}
-                <!-- .conversation list -->
-                <ul class="conversation-list ">
-                    {% for comment in comments %}
-
-                    {% if comment.update.id == update.id %}
-                    <!-- .conversation-inbound -->
-                    <li class="conversation-inbound">
-                        <!-- .conversation-avatar -->
-                        <div class="conversation-avatar">
-                            <a href="/member/{{ comment.user.username }}" class="user-avatar user-avatar-sm">
-                                <img src="{{ comment.user.profile.profile_picture.url }}" alt="#">
-                            </a>
-                        </div>
-                        <!-- /.conversation-avatar -->
-                        <!-- .conversation-message -->
-                        <div class="conversation-message">
-                            <div class="conversation-meta">
-                                <a href="#" class="mr-2">
-                                    <strong>@ {{ comment.user.username }} </strong>
-                                </a>
-                                <span class="time"> {{ comment.comment_date|timesince }} </span>
-                            </div>
-                            <div class="conversation-message-text">
-                                {{ comment.comment }}
-                            </div>
-                            <div class="conversation-meta">
-                                {% if request.user == comment.user %}
-                                <a href="#">Delete</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <!-- /.conversation-message -->
-                    </li>
-                    <!-- /.conversation-inbound -->
-                    {% endif %}
-                    {% endfor %}
-                    <!-- ./ for comments -->
-                </ul>
-
-                {% else %}
-                <li class="conversation-inbound">
-                    <div class="conversation-message">
-                        Be the first to comment out
-                    </div>
-                </li>
-                {% endif %}
-                <!-- ./if comments -->
-            </section>
-            <div class="media col-md-12 ">
-                <figure class="user-avatar user-avatar-sm mt-1 mr-2">
-                    <img src="{{ request.user.profile.profile_picture.url }}" alt="#">
-                </figure>
-                <!-- .media-body -->
-                <div class="media-body">
-                    <!-- .publisher -->
-                    <div class="publisher publisher-alt">
-                        <!-- .comment form -->
-                        <form action="{% url 'comment' update_id=update.id %}" method="POST">
-
-                            <!-- .publisher-input -->
-                            <div class="publisher-input">
+            <div class="metric-row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <div class="metric-row metric-flush ">
+                        <div class="col">
+                            <form method="POST" action="{% url 'updates' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                {% bootstrap_form comment_form layout='inline'%}
-                            </div>
-                            <div class="publisher-actions">
-                                <button type="submit" class="btn btn-primary">Comment</button>
-                            </div>
-                        </form>
+                                {% bootstrap_form update_form layout='inline' %}
+                                <button role="button" class="btn btn-primary" type="submit">
+                                    Submit
+                                </button>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
+                {% if updates %}
+                {% for update in updates %}
+                <!-- .feed-post -->
+
+                <a href="#" class="btn-account" role="button">
+                    <div class="user-avatar user-avatar-lg">
+                        <img src="{{ update.user.profile.profile_picture.url }}" alt="#"> </div>
+                    <div class="account-summary">
+                        <p class="account-name"> @{{ update.user.username }} </p>
+                        <p class="account-description"> {{ update.neighbour.name }} Member · {{ update.post_date }} </p>
+                    </div>
+                </a>
+                </header>
             </div>
         </div>
-        {% endfor %}
-        {% else %}
-        {% endif %}
     </div>
+    <style>
+        body {
+            background-image: url('https://www.porreda.com/acatalog/SY3030.jpg');
+            background-size: cover;
+        }
+    </style>
+</div>
+{% endfor %}
+{% endif %}
 </div>
 {% endblock %}
