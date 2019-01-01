@@ -148,7 +148,7 @@ def hood_details(request , hood_name = None):
     }
     return render (request,'neighbour.html',context)
 
-def add_business ( request):
+def business ( request):
     if request.method == 'POST':
         form = BusinessForm(request.POST)
         if form.is_valid():
@@ -156,7 +156,7 @@ def add_business ( request):
             business.user = current_user
             business.neighborhood = neighborhood
             business.save()
-            return redirect('new_businesses')
+            return redirect('businesses')
     else:
         form = BusinessForm()
 
@@ -165,7 +165,7 @@ def add_business ( request):
     except:
         businesses = None
 
-    return render(request,'new_businesses.html',{"businesses":businesses,"form":form})
+    return render(request,'businesses.html',{"businesses":businesses,"form":form})
 
 def create_hood(request):
     '''

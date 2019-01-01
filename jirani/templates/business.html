@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>business</title>
+    {% block materialize%}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/animate.css'%}">
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css'%}">
+    {% endblock %}
+
+</head>
+
+<body>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <form action="{% url 'business' %}" method="POST" enctype="multipart/form-data" role="dialog"
+                aria-labelledby="hood-add-modal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div style="background-color:#00897b" class="modal-header">
+                            <h5 class="modal-title text-center" style="color:aliceblue;text-align: center;">NEW HUD</h5>
+                        </div>
+                        <!--end of modal head-->
+                        <div class="modal-body">
+                            <!-- forms here -->
+                            {% csrf_token %}
+                            {% bootstrap_form hood_form %}
+                        </div>
+                        <!--end of modal body-->
+                        <div class="modal-footer">
+                            <button role="button" class="btn " type="submit">
+                                submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div> -->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+    </script>
+
+</body>
+
+</html>

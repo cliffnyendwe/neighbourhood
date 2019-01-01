@@ -2,8 +2,6 @@ from django import forms
 from .models import Update , Profile , Comment , Business  , Neighborhood
 from django.contrib.auth.models import User
 
-
-
 class UpdateForm ( forms.ModelForm ):
     class Meta :
         model = Update
@@ -19,8 +17,6 @@ class CommentForm (forms.ModelForm):
         widgets = {
             'comment': forms.TextInput(attrs={'class': 'form-control' , 'id': 'publisherInput1'}),
         }
-
-
 class UserUpdateForm (forms.ModelForm):
     class Meta:
         model = User
@@ -47,7 +43,7 @@ class HoodForm( forms.ModelForm ):
     class Meta:
         model = Neighborhood
         fields = [  'name', 'city'
-          
+  
         ]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'publisherInput1'}),

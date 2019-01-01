@@ -13,7 +13,7 @@ urlpatterns = [
     url (r'^hood/(?P<hood_name>\w+)/$' , views.hood_details , name = 'hood_details' ) ,
     url(r'^hood/$' , views.create_hood , name='new_hood'),
     url(r'^comment/(?P<update_id>\d+)', views.comment, name='comment'),
-    url(r'^business/add/new/' , views.add_business , name='new_business' ) , 
+    url(r'^business/' , views.business , name='business' ) , 
 ]
 
 if settings.DEBUG:
