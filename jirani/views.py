@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .models import Neighborhood , Profile , Business , Update , Comment
-from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm , HoodForm
+from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm
 
 @login_required( login_url= '/accounts/login')
 def index(request):
@@ -89,11 +89,11 @@ def post_update(request):
         if hood_update_form.is_valid():
             new_update = hood_update_form.save(commit=False)
             new_update.user = request.user
-            new_update.neighbour = request.user.neighbour
+            new_update.neighbour = request.user.neighborhood
             print(new_update)
 
             new_update.save()
-            return redirect(index)
+            return redirect(neighbour)
 
 def comment(request, update_id):
     '''
@@ -166,6 +166,24 @@ def business ( request):
         businesses = None
 
     return render(request,'businesses.html',{"businesses":businesses,"form":form})
+
+@login_required(login_url='/accounts/login/')
+def newbusiness(request):
+ neighbour = request.user.id
+ profile = Profile.objects.get(user=neighbour)
+
+ if request.method == 'POST':
+   form = NewBusinessForm(request.POST)
+   if form.is_valid():
+     business = form.save(commit=False)
+     business.neighborhood = profile.neighborhood
+     business.save()
+   return redirect('business')
+
+ else:
+   form = NewBusinessForm()
+
+ return render(request, 'newbusiness.html',{'form':form,'profile':profile})
 
 def create_hood(request):
     '''

@@ -1,0 +1,72 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>business</title>
+    {% block materialize%}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/animate.css'%}">
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css'%}">
+    {% endblock %}
+
+</head>
+
+<body>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+
+            <div class="container">
+
+                <div class="intro">
+                    <h2>Businesses</h2>
+                </div>
+                <hr>
+                <br>
+                {% if businesses %}
+                <div class="row">
+                    {% for business in businesses %}
+                    <div class="col-sm-4" style="margin-bottom: 2em;">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title firstletter" style="color:black">{{business.name}}</h5>
+                                <p class="card-text"><a class='maillink' href="mailto:{{profile.contact}}">{{business.email}}</a></p>
+                                <p class="card-text"><a style="color:black">Neighbourhood: {{business.neighbourhood}}</a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% else %}
+                <h4>No Businesses to show, Add one <a href="{% url 'newbusiness' %}">here</a></h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+    </script>
+
+</body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load bootstrap4 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <title>New business</title>
+ {{form.media}}
+
+{% block styles %} {% bootstrap_css %}
+ <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {% endblock %}
+
+</head>
+
+<body>
+ {% include 'navbar.html' %}
+<div class="jumbotron">
+       <style>
+               .jumbotron {
+                   background: linear-gradient(to right, #16222a, #3a6073);
+                   background-size: cover;
+                   color: whitesmoke;
+               }
+       </style>
+
+   <div class="intro">
+       <h2  style="margin-right:30%;margin-left:20%">New business</h2>
+     </div>
+<hr>
+ <form  action="{%url 'newbusiness'%}" method="post" enctype="multipart/form-data"  style="margin-right:30%;margin-left:20%">
+   {%csrf_token%}
+
+   {% bootstrap_form form%}
+   <input type="submit" class="btn btn-success btn-lg" value="Add business">
+ </form>
+
+ {% block scripts %}
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ {% bootstrap_javascript %} {% endblock %}
+</div>
+</body>
+
+</html>

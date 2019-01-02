@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^hood/$' , views.create_hood , name='new_hood'),
     url(r'^comment/(?P<update_id>\d+)', views.comment, name='comment'),
     url(r'^business/' , views.business , name='business' ) , 
+    url(r'^new/business/' , views.newbusiness , name='newbusiness' ) , 
 ]
 
 if settings.DEBUG:

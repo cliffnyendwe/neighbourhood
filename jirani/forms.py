@@ -39,6 +39,11 @@ class BusinessForm(forms.ModelForm):
         fields = [ 'name', 'email' 
            
         ]
+
+class NewBusinessForm(forms.ModelForm):
+ class Meta:
+   model = Business
+   exclude = ['pub_date']
 class HoodForm( forms.ModelForm ):
     class Meta:
         model = Neighborhood
