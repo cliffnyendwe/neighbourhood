@@ -3,6 +3,7 @@
 
 {% block content %}
 {{block.super}}
+
 <span class="font-weight-bold;" style="font-family: 'Old Standard TT', serif;">Hi, {{ request.user.username|title }}.</span>
 <span class="font-weight-bold" style="font-family: 'Old Standard TT', serif;"> What’s new ?</span>
 <div class="metric-row">
@@ -77,6 +78,13 @@
                         {% endfor %}
                         <!-- ./ for comments -->
                     </ul>
+
+                    {% else %}
+                    <li class="conversation-inbound">
+                        <div class="conversation-message">
+                            Be the first to comment !
+                        </div>
+                    </li>
                     {% endif %}
 
                 </section>
