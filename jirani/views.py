@@ -93,7 +93,7 @@ def post_update(request):
             print(new_update)
 
             new_update.save()
-            return redirect(neighbour)
+            return redirect(index)
 
 def comment(request, update_id):
     '''
