@@ -89,7 +89,7 @@ def post_update(request):
         if hood_update_form.is_valid():
             new_update = hood_update_form.save(commit=False)
             new_update.user = request.user
-            new_update.neighborhood = request.user.neighborhood
+           
             print(new_update)
 
             new_update.save()
