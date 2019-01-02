@@ -3,107 +3,97 @@
 
 {% block content %}
 {{block.super}}
-<div class="container" style="text-align: center;">
-    <span class="font-weight-bold;" style="font-family: 'Old Standard TT', serif;">Hi, {{ request.user.username|title
-        }}.</span>
-    <span class="font-weight-bold" style="font-family: 'Old Standard TT', serif;"> What’s new ?</span>
-    <div class="metric-row">
-        <div class="col-md-1"></div>
-        <div class="col-md-8">
-            <div class="metric-row metric-flush ">
-                <div class="col">
-                    <form method="POST" action="{% url 'updates' %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% bootstrap_form update_form layout='inline' %}
-                        <button role="button" class="btn btn-primary" type="submit">
-                            Submit
-                        </button>
-                    </form>
+<span class="font-weight-bold;" style="font-family: 'Old Standard TT', serif;">Hi, {{ request.user.username|title }}.</span>
+<span class="font-weight-bold" style="font-family: 'Old Standard TT', serif;"> What’s new ?</span>
+<div class="metric-row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+        <div class="metric-row metric-flush ">
+            <div class="col">
+                <form method="POST" action="{% url 'updates' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form update_form layout='inline' %}
+                    <button role="button" class="btn btn-primary" type="submit">
+                        Submit
+                    </button>
+                </form>
 
-                </div>
             </div>
-            <hr>
-
-            {% if updates %}
-            {% for update in updates %}
-            <!-- .feed-post -->
-            <section class="feed-post card">
-                <!-- .card-header -->
-                <header class="card-header card-header-fluid">
-                    <a href="#" class="btn-account" role="button">
-                        <div class="user-avatar user-avatar-lg">
-                            <img src="{{ update.user.profile.profile_picture.url }}" alt="#"> </div>
-                        <div class="account-summary">
-                            <p class="account-name"> @{{ update.user.username }} </p>
-                            <p class="account-description"> {{ update.hood.name }} Member · {{ update.post_date }} </p>
-                        </div>
-                    </a>
-                </header>
-                <div class="card-body">
-
-                    <section class="card-figure">
-                        <div class="figure-img">
-                            <img class="img-fluid" src=" {{ update.picture.url }} " alt="">
-                        </div>
-                    </section>
-                    <section class="converstations" role="log">
-                        {% if comments %}
-                        <!-- .conversation list -->
-                        <ul class="conversation-list ">
-                            {% for comment in comments %}
-
-                            {% if comment.update.id == update.id %}
-                            <!-- .conversation-inbound -->
-                            <li class="conversation-inbound">
-                                <div class="conversation-avatar">
-                                    <a href="/member/{{ comment.user.username }}" class="user-avatar user-avatar-sm">
-                                        <img src="{{ comment.user.profile.profile_picture.url }}" alt="">
-                                    </a>
-                                </div>
-                                <!-- .conversation-message -->
-                                <div class="conversation-message">
-                                    <div class="conversation-meta">
-                                        <a href="#" class="mr-2">
-                                            <strong>@ {{ comment.user.username }} </strong>
-                                        </a>
-                                        <span class="time"> {{ comment.comment_date|timesince }} </span>
-                                    </div>
-                                    <div class="conversation-message-text">
-                                        {{ comment.comment }}
-                                    </div>
-                                </div>
-                                <!-- /.conversation-message -->
-                            </li>
-                            <!-- /.conversation-inbound -->
-                            {% endif %}
-                            {% endfor %}
-                            <!-- ./ for comments -->
-                        </ul>
-
-                        {% else %}
-                        <li class="conversation-inbound">
-                            <div class="conversation-message">
-                                Be the first to comment !
-                            </div>
-                        </li>
-                        {% endif %}
-
-                    </section>
-                    <div class="media col-md-12 ">
-                        <div class="media-body">
-                            <form action="{% url 'comment' update_id=update.id %}" method="POST">
-                                <div class="publisher-input">
-                                    {% csrf_token %}
-                                    {% bootstrap_form comment_form layout='inline'%}
-                                </div>
-                                <button type="submit" class="btn btn-primary">Comment</button>
-                            </form>
-                        </div>
-                    </div>
-            </section>
-            {% endfor %}
-            {% endif %}
         </div>
+        <hr>
+
+        {% if updates %}
+        {% for update in updates %}
+        <!-- .feed-post -->
+        <section class="feed-post card">
+            <!-- .card-header -->
+            <header class="card-header card-header-fluid">
+                <a href="#" class="btn-account" role="button">
+                    <div class="user-avatar user-avatar-lg">
+                        <img src="{{ update.user.profile.profile_picture.url }}" alt="#"> </div>
+                    <div class="account-summary">
+                        <p class="account-name"> @{{ update.user.username }} </p>
+                        <p class="account-description"> {{ update.hood.name }} Member · {{ update.post_date }} </p>
+                    </div>
+                </a>
+            </header>
+            <div class="card-body">
+
+                <section class="card-figure">
+                    <div class="figure-img">
+                        <img class="img-fluid" src=" {{ update.picture.url }} " alt="">
+                    </div>
+                </section>
+                <section class="converstations" role="log">
+                    {% if comments %}
+                    <!-- .conversation list -->
+                    <ul class="conversation-list ">
+                        {% for comment in comments %}
+
+                        {% if comment.update.id == update.id %}
+                        <!-- .conversation-inbound -->
+                        <li class="conversation-inbound">
+                            <div class="conversation-avatar">
+                                <a href="/member/{{ comment.user.username }}" class="user-avatar user-avatar-sm">
+                                    <img src="{{ comment.user.profile.profile_picture.url }}" alt="">
+                                </a>
+                            </div>
+                            <!-- .conversation-message -->
+                            <div class="conversation-message">
+                                <div class="conversation-meta">
+                                    <a href="#" class="mr-2">
+                                        <strong>@ {{ comment.user.username }} </strong>
+                                    </a>
+                                    <span class="time"> {{ comment.comment_date|timesince }} </span>
+                                </div>
+                                <div class="conversation-message-text">
+                                    {{ comment.comment }}
+                                </div>
+                            </div>
+                            <!-- /.conversation-message -->
+                        </li>
+                        <!-- /.conversation-inbound -->
+                        {% endif %}
+                        {% endfor %}
+                        <!-- ./ for comments -->
+                    </ul>
+                    {% endif %}
+
+                </section>
+                <div class="media col-md-12 ">
+                    <div class="media-body">
+                        <form action="{% url 'comment' update_id=update.id %}" method="POST">
+                            <div class="publisher-input">
+                                {% csrf_token %}
+                                {% bootstrap_form comment_form layout='inline'%}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Comment</button>
+                        </form>
+                    </div>
+                </div>
+        </section>
+        {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}
