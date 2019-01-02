@@ -50,7 +50,7 @@ class Neighborhood (models.Model):
     @classmethod 
     def search_hood (cls , search_term):
         '''
-        Search for a hood from the db
+        Search for a hood from database
         '''
         return cls.objects.filter(name__icontains=search_term)
 
