@@ -5,6 +5,11 @@ from django.contrib.auth.models import User
 from .models import Neighborhood , Profile , Business , Update , Comment
 from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm
 
+
+def signout(request):
+    logout(request)
+    return redirect('login')
+    
 @login_required( login_url= '/accounts/login')
 def index(request):
     '''
@@ -192,7 +197,6 @@ def create_hood(request):
         if hood_form.is_valid():
             new_hood = hood_form.save(commit=False)
             new_hood.admin = request.user
-            # new_hood.join_hood(request.user)
             new_hood.save()
             return redirect('hood_details',new_hood.name)
     else:
