@@ -5,10 +5,6 @@ from django.contrib.auth.models import User
 from .models import Neighborhood , Profile , Business , Update , Comment
 from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm
 
-
-def signout(request):
-    logout(request)
-    return redirect('login')
     
 @login_required( login_url= '/accounts/login')
 def index(request):

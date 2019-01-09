@@ -6,7 +6,6 @@ from . import views
 
 urlpatterns = [
 
-    url(r'^signout/$', views.signout, name='signout'),
     url(r'^$', views.index, name='index'),
     url(r'^member/(?P<user_username>\w+)/$', views.profile, name='userprofile'),
     url(r'^(\w+)/edit$', views.editprofile, name='editprofile') ,
