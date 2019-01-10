@@ -147,7 +147,7 @@ def hood_details(request , hood_name = None):
     }
     return render (request,'neighbour.html',context)
 
-def business ( request):
+def business (request):
     if request.method == 'POST':
         form = BusinessForm(request.POST)
         if form.is_valid():
@@ -160,7 +160,8 @@ def business ( request):
         form = BusinessForm()
 
     try:
-        businesses = Business.objects.filter(neighborhood = neighborhood)
+        businesses = Business.objects.all()
+        print(businesses)
     except:
         businesses = None
 

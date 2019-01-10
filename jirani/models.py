@@ -1,7 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-
- 
+from django.contrib.auth.models import User 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
@@ -14,9 +12,9 @@ class Neighborhood (models.Model):
     admin = models.ForeignKey(User , on_delete=models.CASCADE, related_name='hood_admin' , null=True , blank= True)
     occupants = models.ManyToManyField(User , related_name='hood_occupants', blank=True)
 
+
     def __str__(self):
         return self.name
-
 
     def new_hood ( self ):
         '''
@@ -58,20 +56,18 @@ class Neighborhood (models.Model):
     def update_hood_name ( cls ,id , new_name ):
         return cls.objects.get(id).update( name = new_name )
 
-
     @classmethod 
     def get_hood_by_name(cls , name) :
         return cls.objects.get(name=name)
-
 
 class Profile(models.Model):
     '''
     Profile of an individul . More Information .
     '''
     user = models.OneToOneField(User,  on_delete=models.CASCADE)
-    neighborhood = models.ForeignKey(Neighborhood , null=True , blank=True ,related_name='population' )
-    profile_picture = models.ImageField(upload_to='static/profile', default="https://imgur.com/jVr43h8.png" , blank=True)
-    about = models.TextField(max_length=100, blank=True)
+    neighborhood = models.ForeignKey(Neighborhood , null=True , blank=True ,related_name='population')
+    profile_picture = models.ImageField(upload_to='static/profile', default="pic.png" , blank=True)
+    about = models.TextField(max_length=150, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -92,7 +88,6 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
 
 class Business (models.Model):
     '''
@@ -118,6 +113,11 @@ class Business (models.Model):
     def get_hood_business ( cls , hood ):
         return cls.objects.filter(neighborhood__name = hood)
 
+    @classmethod 
+    def get_bussiness ( cls , hood ):
+        business = Business.objects.filter(name__username__icontains=hood)
+        return business    
+    
     @classmethod
     def update_business ( id , new_name):
         return cls.objects.get(id).update(name = new_name)
@@ -135,7 +135,6 @@ class Update ( models.Model ):
     def __str__(self):
         return f"{ self.user.username }'s post"
 
-
     @classmethod 
     def get_hood_updates(cls , hood):
         return cls.objects.filter(hood = hood)
@@ -143,7 +142,7 @@ class Update ( models.Model ):
 
 class Comment ( models.Model ):
     comment = models.CharField(max_length = 280)
-    # attached = models.ImageField()
+
     update = models.ForeignKey(Update , on_delete=models.CASCADE)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
     comment_date = models.DateField(auto_now=True)

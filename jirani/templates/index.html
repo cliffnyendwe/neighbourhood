@@ -3,9 +3,12 @@
 
 {% block content %}
 {{block.super}}
-
-<span class="font-weight-bold;" style="font-family: 'Old Standard TT', serif;">Hi, {{ request.user.username|title }}.</span>
-<span class="font-weight-bold" style="font-family: 'Old Standard TT', serif;"> What’s new ?</span>
+<br><br>
+<div class="cliff">
+    <h3 class="font-weight-bold;" style="font-family: 'Old Standard TT', serif;">Hi, {{ request.user.username|title }}.</h3>
+    <h4 class="font-weight-bold" style="font-family: 'Old Standard TT', serif;"> What’s new ?</h4>
+</div>
+<br>
 <div class="metric-row">
     <div class="col-md-1"></div>
     <div class="col-md-8">
@@ -21,7 +24,6 @@
 
             </div>
         </div>
-        <hr>
 
         {% if updates %}
         {% for update in updates %}

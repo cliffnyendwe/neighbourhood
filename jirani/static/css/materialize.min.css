@@ -2,11 +2,11 @@ h5 {
     color: green;
 }
 
-body{
+/* body{
     background-image: url('https://images.unsplash.com/photo-1540202404-d0c7fe46a087?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=890&q=80');
     background-size: cover;
     background-attachment: fixed;
-}
+} */
 
 .figure-img{
     text-align: center;
@@ -14,4 +14,8 @@ body{
 
 .center{
     text-align: center;
+}
+
+.cliff{
+    padding-right: 30px;
 }
