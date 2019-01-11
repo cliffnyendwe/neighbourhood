@@ -122,6 +122,41 @@ class Business (models.Model):
     def update_business ( id , new_name):
         return cls.objects.get(id).update(name = new_name)
 
+
+class Neighbourr (models.Model):
+    '''
+    Neighbours in a particular neighborhood
+    '''
+    name = models.CharField(max_length = 30,default='name')
+    location = models.CharField(max_length=50,default='location')
+    picture = models.ImageField( upload_to = 'static/posts/' , null=True )
+    contact = models.CharField(max_length = 30, default='07')
+    email = models.EmailField()
+    joined_date = models.DateField(auto_now=True)
+    city = models.CharField(max_length = 60 , blank=True )
+    about = models.TextField(max_length=160, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Neighbours'
+
+    def create_neighbourr ( self ):
+        self.save()
+
+    def remove_neighbour ( self ):
+        self.delete()
+
+    @classmethod 
+    def get_hood_neighbour ( cls , hood ):
+        return cls.objects.filter(neighborhood__name = hood)
+
+    @classmethod 
+    def get_neighbourr ( cls , neighbours ):
+        neighbour = Neighbours.objects.filter(name__username__icontains=neighbours)
+        return neighbour 
+
 class Update ( models.Model ):
     '''
     Could be Images , Videos or Plain words 

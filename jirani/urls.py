@@ -16,6 +16,8 @@ urlpatterns = [
     url(r'^comment/(?P<update_id>\d+)', views.comment, name='comment'),
     url(r'^business/' , views.business , name='business' ) , 
     url(r'^new/business/' , views.newbusiness , name='newbusiness' ) , 
+    url(r'^neighbourr/' , views.neighbourr , name='neighbourr' ) , 
+    url(r'^new/neighbour/' , views.newneighbour , name='newneighbour' ) ,
 ]
 
 if settings.DEBUG:

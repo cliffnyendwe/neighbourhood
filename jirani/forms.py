@@ -1,5 +1,5 @@
 from django import forms
-from .models import Update , Profile , Comment , Business  , Neighborhood
+from .models import Update , Profile , Comment , Business  , Neighborhood,Neighbourr
 from django.contrib.auth.models import User
 
 class UpdateForm ( forms.ModelForm ):
@@ -39,10 +39,24 @@ class BusinessForm(forms.ModelForm):
         fields = [ 'name', 'email' 
            
         ]
+        widgets={
+            'about': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
 class NewBusinessForm(forms.ModelForm):
  class Meta:
    model = Business
+   exclude = ['pub_date','neighborhood']
+
+
+class NeighbourForm(forms.ModelForm):
+    class Meta:
+        model = Neighbourr
+        fields = '__all__'
+
+class NewNeighbourForm(forms.ModelForm):
+ class Meta:
+   model = Neighbourr
    exclude = ['pub_date']
 class HoodForm( forms.ModelForm ):
     class Meta:

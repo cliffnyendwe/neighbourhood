@@ -24,7 +24,7 @@
 <body>
     <!-- Modal Trigger -->
     <br><br>
-    <a class="btn modal-trigger" style="text-align: center;float:left;" href="#modal1">Business</a>
+    <a class="btn modal-trigger" style="text-align: center;" href="#modal1">Neighbour</a>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
@@ -33,19 +33,19 @@
             <div class="container">
 
                 <div class="intro">
-                    <h2>Businesses</h2>
+                    <h2>NEIGHBOUR</h2>
                 </div>
                 <hr>
                 <br>
-                {% if businesses %}
+                {% if neighbours %}
                 <div class="row">
-                    {% for business in businesses %}
+                    {% for neighbourr in neighbours %}
                     <div class="col-sm-4" style="margin-bottom: 2em;">
                         <div class="card bg-light">
                             <div class="card-body">
-                                <h5 class="card-title firstletter" style="color:black">{{business.name}}</h5>
+                                <h5 class="card-title firstletter" style="color:black">{{neighbourr.name}}</h5>
                                 <p class="card-text"><a class='maillink' href="mailto:{{profile.contact}}">{{business.email}}</a></p>
-                                <p class="card-text"><a style="color:black">Neighbourhood: {{business.neighbourhood}}</a></p>
+                                <p class="card-text"><a style="color:black">Neighbourhood: {{neighbourr.neighbourhood}}</a></p>
 
                             </div>
                         </div>
@@ -54,13 +54,12 @@
                 </div>
 
                 {% else %}
-                <h4>Found none, Add some <a href="{% url 'newbusiness' %}">here</a></h4>
+                <h4>New neighbours   <a href="{% url 'newneighbour' %}">here</a></h4>
                 {% endif %}
             </div>
         </div>
     </div>
     
-
     <script>
         $(document).ready(function () {
             $('.modal').modal();

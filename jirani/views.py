@@ -2,8 +2,8 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from .models import Neighborhood , Profile , Business , Update , Comment
-from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm
+from .models import Neighborhood , Profile , Business , Update , Comment,Neighbourr
+from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm,NeighbourForm,NewNeighbourForm
 
     
 @login_required( login_url= '/accounts/login')
@@ -171,12 +171,14 @@ def business (request):
 def newbusiness(request):
  neighbour = request.user.id
  profile = Profile.objects.get(user=neighbour)
+ hood = Neighborhood.objects.get(hood)
+ print(hood.id)
 
  if request.method == 'POST':
    form = NewBusinessForm(request.POST)
    if form.is_valid():
      business = form.save(commit=False)
-     business.neighborhood = profile.neighborhood
+     business.neighborhood = hood
      business.save()
    return redirect('business')
 
@@ -184,6 +186,45 @@ def newbusiness(request):
    form = NewBusinessForm()
 
  return render(request, 'newbusiness.html',{'form':form,'profile':profile})
+
+def  neighbourr (request):
+    if request.method == 'POST':
+        form = NeighbourForm(request.POST)
+        if form.is_valid():
+            neighbourr = form.save(commit=False)
+            neighbourr.user = current_user
+            neighbourr.neighborhood = neighborhood
+            neighbourr.save()
+            return redirect('neighbourr ')
+    else:
+        form = NeighbourForm()
+
+    try:
+        neighbours = Neighbour.objects.all()
+        print(neighbours)
+    except:
+        neighbourr = None
+
+    return render(request,'neighbourr.html',{"neighbourr":neighbourr,"form":form})
+
+
+@login_required(login_url='/accounts/login/')
+def newneighbour(request):
+ neighbourr = request.user.id
+ profile = Profile.objects.get(user=neighbourr)
+
+ if request.method == 'POST':
+   form = NeighbourForm(request.POST)
+   if form.is_valid():
+     neighbourr = form.save(commit=False)
+     neighbourr.neighborhood = profile.neighborhood
+     neighbourr.save()
+   return redirect('neighbourr')
+
+ else:
+   form = NeighbourForm()
+
+ return render(request, 'newneighbour.html',{'form':form,'profile':profile})
 
 def create_hood(request):
     '''
