@@ -22,3 +22,12 @@ h6{
 .neighbour{
     color:#fafafa;
 }
+
+.card-panel{
+    justify-content: center;
+
+}
+
+.container-fluid{
+    justify-content: center;
+}

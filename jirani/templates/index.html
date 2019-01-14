@@ -3,11 +3,13 @@
 
 {% block content %}
 {{block.super}}
+<div class="container">
+    <div class="nyendwe">
 <br><br>
-<div class="cliff">
+<div class="card-panel">
     <h3 class="font-weight-bold;" style="font-family: 'Old Standard TT', serif;">Hi, {{ request.user.username|title }}.</h3>
     <h4 class="font-weight-bold" style="font-family: 'Old Standard TT', serif;"> What’s new ?</h4>
-</div>
+
 <br>
 <div class="metric-row">
     <div class="col-md-1"></div>
@@ -27,12 +29,12 @@
 
         {% if updates %}
         {% for update in updates %}
-        <div class="center">
+        <div class="center" style="width:50%">
             <section class="feed-post card">
                 <header class="card-header card-header-fluid">
                     <a href="#" class="btn-account" role="button">
                         <div class="user-avatar user-avatar-lg">
-                            <img src="{{ update.user.profile.profile_picture.url }}" width="100px" alt="">
+                            <img src="{{ update.user.profile.profile_picture.url }}" width="200px" alt="">
                             <div class="account-summary">
                                 <p class="account-name"> @{{ update.user.username }} </p>
                                 <p class="account-description"> {{ update.hood.name }} Member · {{ update.post_date }}
@@ -42,11 +44,6 @@
                 </header>
                 <div class="card-body">
 
-                    <div class="card-figure">
-                        <div class="figure-img">
-                            <img class="img-fluid" style="text-align: center;" src=" {{ update.picture.url }} " width="500px"
-                                alt="">
-                        </div>
                         <section class="converstations" role="log">
                             {% if comments %}
                             {% for comment in comments %}
@@ -78,7 +75,7 @@
             <div class="media col-md-12 ">
                 <div class="card-body">
                     <form action="{% url 'comment' update_id=update.id %}" method="POST">
-                        <div class="publisher-input">
+                        <div class="publisher-input" style="width:50%">
                             {% csrf_token %}
                             {% bootstrap_form comment_form layout='inline'%}
                         </div>
@@ -89,6 +86,7 @@
             </section>
             {% endfor %}
             {% endif %}
+            </div>
         </div>
     </div>
 </div>
