@@ -94,7 +94,7 @@ class Business (models.Model):
     Bunisesses in a particular neighborhood
     '''
     name = models.CharField(max_length = 30)
-    neighborhood = models.ForeignKey(Neighborhood)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     email = models.EmailField()
 
     def __str__(self):

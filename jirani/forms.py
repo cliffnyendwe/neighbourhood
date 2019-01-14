@@ -46,13 +46,13 @@ class BusinessForm(forms.ModelForm):
 class NewBusinessForm(forms.ModelForm):
  class Meta:
    model = Business
-   exclude = ['pub_date','neighborhood']
+   exclude = ['pub_date']
 
 
 class NeighbourForm(forms.ModelForm):
     class Meta:
         model = Neighbourr
-        fields = '__all__'
+        exclude = '__all__'
 
 class NewNeighbourForm(forms.ModelForm):
  class Meta:
