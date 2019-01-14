@@ -2,8 +2,8 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from .models import Neighborhood , Profile , Business , Update , Comment,Neighbourr
-from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm,NeighbourForm,NewNeighbourForm
+from .models import Neighborhood , Profile , Business , Update , Comment
+from .forms import UpdateForm , UserUpdateForm , ProfileUpdateForm , CommentForm , BusinessForm ,NewBusinessForm, HoodForm
 
     
 @login_required( login_url= '/accounts/login')
@@ -185,32 +185,6 @@ def newbusiness(request):
 
  return render(request, 'newbusiness.html',{'form':form,'profile':profile})
 
-@login_required(login_url='/accounts/login/')
-def neighbourr(request):
- cliff = request.user.id
- profile = Profile.objects.get(user=cliff)
- neighbours = Neighbourr.objects.all().order_by()
-
- return render(request, 'neighbourr.html',{'neighbourr':neighbourr,'profile':profile})
-
-
-@login_required(login_url='/accounts/login/')
-def newneighbour(request):
- neighbourr = request.user.id
- profile = Profile.objects.get(user=neighbourr)
-
- if request.method == 'POST':
-   form = NewNeighbourForm(request.POST)
-   if form.is_valid():
-     neighbourr = form.save(commit=False)
-     neighbourr.neighborhood = profile.neighborhood
-     neighbourr.save()
-   return redirect('neighbourr')
-
- else:
-   form = NeighbourForm()
-
- return render(request, 'newneighbour.html',{'form':form,'profile':profile})
 
 def create_hood(request):
     '''
